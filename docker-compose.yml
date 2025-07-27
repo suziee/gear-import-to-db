@@ -1,0 +1,36 @@
+services:
+  dev:
+    image: mcr.microsoft.com/dotnet/sdk:7.0-alpine
+    container_name: gear-db-importer
+    volumes:
+      - ./:/home/app
+      - type: bind
+        source: ../02-db/home/gear.db
+        target: /home/db/gear.db
+      - type: bind
+        source: ../01-create-seed-data/output/
+        target: /home/seed-data/
+        read_only: true
+    stdin_open: true
+    tty: true
+  importer:
+    image: gear-db-importer
+    container_name: gear-db-importer
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/home/app
+      - type: bind
+        source: ../02-db/home/gear.db
+        target: /home/db/gear.db
+      - type: bind
+        source: ../01-create-seed-data/output/
+        target: /home/seed-data/
+        read_only: true
+      - type: bind
+        source: ./import.sh
+        target: /app/import.sh
+        read_only: true
+    stdin_open: true
+    tty: true
