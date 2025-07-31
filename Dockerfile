@@ -22,5 +22,3 @@ RUN dotnet publish "DataImporter.csproj" \
 FROM mcr.microsoft.com/dotnet/runtime-deps:7.0-alpine AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-ENTRYPOINT ["./import.sh"]
