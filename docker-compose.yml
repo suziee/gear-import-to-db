@@ -1,7 +1,7 @@
 services:
   dev:
-    image: mcr.microsoft.com/dotnet/sdk:7.0-alpine
-    container_name: gear-db-importer
+    image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+    container_name: gear-db-importer-dev
     volumes:
       - ./:/home/app
       - type: bind
